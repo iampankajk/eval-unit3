@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>signup</title>
+    <style>
+        .box {
+            width: 200px;
+            margin: auto;
+        }
+
+        input {
+            padding: 10px;
+        }
+
+        h3 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Signup</h3>
+    <div class="box">
+        <form onsubmit="signup(event)" id="form">
+            <input type="text" placeholder="Name" id="name">
+            <input type="email" placeholder="Email" id="email">
+            <input type="tel" placeholder="Mobile Number" id="mobile">
+            <input type="password" placeholder="Password" id="password">
+            <input type="text" name="" id="username" placeholder="Username">
+            <input type="text" name="" id="description" placeholder="Description">
+            <input type="submit" name="" id="submit" value="Signup">
+        </form>
+
+    </div>
+</body>
+
+</html>
+
+<script>
+    async function signup(e) {
+        e.preventDefault()
+        user_data = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value,
+            username: document.getElementById('username').value,
+            mobile: document.getElementById('mobile').value,
+            description: document.getElementById('description').value
+
+
+        }
+
+
+        data_to_send = JSON.stringify(user_data)
+
+
+        try {
+            response = await fetch('https://masai-api-mocker.herokuapp.com/auth/register', {
+
+                method: "POST",
+                body: data_to_send,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+
+
+            })
+
+            data = await response.json()
+
+            console.log(data)
+
+        }
+
+        catch (e) {
+
+            console.log(e)
+
+        }
+
+    }
+</script>

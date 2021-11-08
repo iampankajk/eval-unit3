@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        .box {
+            width: 200px;
+            margin: auto;
+        }
+
+        input {
+            padding: 10px;
+        }
+
+        h3 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Login</h3>
+    <div class="box">
+        <form onsubmit="login(event)" id="form">
+    
+            <input type="password" placeholder="Password" id="password">
+            <input type="text" name="" id="username" placeholder="Username">
+            <input type="submit" name="" id="submit" value="Login">
+        </form>
+
+    </div>
+</body>
+
+</html>
+
+<script>
+    async function login(e) {
+        e.preventDefault()
+        username = document.getElementById('username').value
+
+        user = {
+            username: document.getElementById('username').value,
+            password: document.getElementById('password').value
+
+        }
+
+        data = JSON.stringify(user)
+
+
+        try {
+            response = await fetch('https://masai-api-mocker.herokuapp.com/auth/login', {
+
+                method: "POST",
+                body: data,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+
+
+            })
+
+            data = await response.json()
+
+            console.log(username, data.token)
+            document.getElementById('profbtn').innerText = 'LogedIn' + " " + username
+
+        }
+
+        catch (e) {
+
+            console.log(e)
+
+        }
+
+
+    }
+
+</script>
